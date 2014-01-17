@@ -1,0 +1,25 @@
+{
+  "name": "submitter",
+  "version": "0.0.1",
+  "description": "Automatically submitting forms with AJAX",
+  "main": "submitter.js",
+  "keywords": [
+    "AJAX",
+    "forms",
+    "javascript",
+    "CSS3",
+    "html",
+    "XMLHttpRequest 2"
+  ],
+  "author": [
+    "Jacobo Tabernero jacobo@xarope.eu"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
