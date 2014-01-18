@@ -3,7 +3,7 @@ if (!module) { var module = {};}
 
 var submitter = module.exports = function (fName, options) {
 
-	var form, getValues, upload, opts;
+	var form, getValues, upload, opts, buttons, bLen, j, btn;
 
 	opts = options || {}
 	opts.init = opts.init || function () {};
@@ -19,31 +19,57 @@ var submitter = module.exports = function (fName, options) {
 	*/
 
 	getValues = function (form) {
-		var data, i, inputs, _editables, x, len;
+		var data, i, inputs, textareas, _editables, x, len;
 
-		inputs = form.getElementsByTagName( "input" );
+		inputs = form.elements;
 		data = new FormData();
 
 		// store values
 		for (i = 0, len = inputs.length; i < len; i++) {
 			x = inputs[i];
-			// not type=file inputs
-			if (x.type !== 'file') {
-				if (inputs.hasOwnProperty(i)) {
-					data.append(x.name, x.value);
-				}
-			// inputs with type=file
-			} else {
-				// check if contain files
-				if (x.files && x.files.length !== 0) {
-					// on single file
-					if (x.files.length === 1) {
-						data.append(x.name, x.files[0]);
-					// more than one file
-					} else {
-						data.append(x.name, x.files);
+			switch (x.type) {
+				// regular inputs
+				case 'color':
+				case 'date':
+				case 'datetime':
+				case 'datetime-local':
+				case 'email':
+				case 'hidden':
+				case 'month':
+				case 'number':
+				case 'password':
+				case 'range':
+				case 'tel':
+				case 'text':
+				case 'textarea':
+				case 'time':
+				case 'url':
+				case 'week':
+					if (inputs.hasOwnProperty(i)) {
+						data.append(x.name, x.value);
+					};
+					break;
+
+				// file inputs
+				case 'file':
+					// check if contain files
+					if (x.files && x.files.length !== 0) {
+						// on single file
+						if (x.files.length === 1) {
+							data.append(x.name, x.files[0]);
+						// more than one file
+						} else {
+							data.append(x.name, x.files);
+						}
+					};
+					break;
+
+				case 'radio':
+				case 'checkbox':
+					if (x.checked) {
+						data.append( x.name, x.value);
 					}
-				}
+					break;
 			}
 		}
 
@@ -104,6 +130,19 @@ var submitter = module.exports = function (fName, options) {
 	};
 
 	form = document.forms[fName];
+
+	// Allow external submit buttons
+	buttons = document.getElementsByTagName('input');
+	
+	for (j = 0, bLen = buttons.length; j < bLen; j++){
+		
+		if (buttons[j].attributes.target && buttons[j].attributes.target.value === fName && buttons[j].attributes.type.value === 'submit') {
+			buttons[j].onclick = function (e) {
+				upload(form);
+				return e.preventDefault();
+			}
+		}
+	}
 
 	return form.addEventListener( 'submit', function (evt) {
 		evt.preventDefault();

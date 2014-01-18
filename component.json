@@ -2,7 +2,7 @@
   "name": "submitter",
   "repo": "jacoborus/submitter",
   "description": "Automatically submitting forms with AJAX",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords":  [
     "AJAX",
     "forms",

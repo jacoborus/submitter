@@ -1,7 +1,13 @@
-submitter
+ssubmitter
 =========
 
 Automatically submitting forms with AJAX
+
+## Features
+
+- Recover all data of inputs in form
+- Recover div content as inputs content
+- Allow submit button outside the form (add target="your-form-name" to your submit input)
 
 ## Installation
 
