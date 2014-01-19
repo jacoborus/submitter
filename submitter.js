@@ -63,7 +63,7 @@ var submitter = module.exports = function (fName, options) {
 						}
 					};
 					break;
-
+				// inputs with multiple instances
 				case 'radio':
 				case 'checkbox':
 					if (x.checked) {
@@ -144,8 +144,45 @@ var submitter = module.exports = function (fName, options) {
 		}
 	}
 
+	// create inputs with type:file for images with attribute submmiter
+	var formImgs = form.getElementsByTagName('img');
+	var inp;
+	for (j = 0, bLen = formImgs.length; j < bLen; j++){
+		
+		if (formImgs[j].attributes.submitter && formImgs[j].attributes.name) {
+			// create input and set attributes
+			inp = document.createElement( 'input' );
+			inp.setAttribute( 'name', formImgs[j].attributes.name.value );
+			inp.setAttribute( 'type', 'file' );
+			inp.img = formImgs[j];
+			inp.style.display = 'none';
+			formImgs[j].inp = inp;
+
+			inp.addEventListener( 'change', function (e) {
+				var files = e.target.files || e.dataTransfer.files;
+				var reader = new FileReader();
+				var _this = e.target;
+
+				reader.onload = function (e) {
+					_this.img.src = e.target.result;
+				};
+				reader.readAsDataURL(files[0]);
+			}, false);
+
+			formImgs[j].onclick = function (e) {
+				event = new Event('click');
+				e.target.inp.dispatchEvent(event);
+			}
+
+			form.appendChild(inp);
+		}
+	}
+
+
+	// Form binding
 	return form.addEventListener( 'submit', function (evt) {
 		evt.preventDefault();
 		return upload( form );
 	});
 };
+

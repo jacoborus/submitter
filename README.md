@@ -1,4 +1,4 @@
-ssubmitter
+submitter
 =========
 
 Automatically submitting forms with AJAX
@@ -8,6 +8,7 @@ Automatically submitting forms with AJAX
 - Recover all data of inputs in form
 - Recover div content as inputs content
 - Allow submit button outside the form (add target="your-form-name" to your submit input)
+- Use img tags as input[type="file"]
 
 ## Installation
 
