@@ -28,28 +28,6 @@ var submitter = module.exports = function (fName, options) {
 		for (i = 0, len = inputs.length; i < len; i++) {
 			x = inputs[i];
 			switch (x.type) {
-				// regular inputs
-				case 'color':
-				case 'date':
-				case 'datetime':
-				case 'datetime-local':
-				case 'email':
-				case 'hidden':
-				case 'month':
-				case 'number':
-				case 'password':
-				case 'range':
-				case 'tel':
-				case 'text':
-				case 'textarea':
-				case 'time':
-				case 'url':
-				case 'week':
-					if (inputs.hasOwnProperty(i)) {
-						data.append(x.name, x.value);
-					};
-					break;
-
 				// file inputs
 				case 'file':
 					// check if contain files
@@ -70,6 +48,12 @@ var submitter = module.exports = function (fName, options) {
 						data.append( x.name, x.value);
 					}
 					break;
+                // regular inputs
+                default:
+                    if (inputs.hasOwnProperty(i)) {
+                        data.append(x.name, x.value);
+                    };
+                    break;
 			}
 		}
 
@@ -111,7 +95,7 @@ var submitter = module.exports = function (fName, options) {
 				}
 			}
 		};
-		
+
 		request.upload.addEventListener( 'progress', function (e) {
 			return opts.progress( (e.loaded / e.total) * 100);
 		}, false);
@@ -133,9 +117,9 @@ var submitter = module.exports = function (fName, options) {
 
 	// Allow external submit buttons
 	buttons = document.getElementsByTagName('input');
-	
+
 	for (j = 0, bLen = buttons.length; j < bLen; j++){
-		
+
 		if (buttons[j].attributes.target && buttons[j].attributes.target.value === fName && buttons[j].attributes.type.value === 'submit') {
 			buttons[j].onclick = function (e) {
 				upload(form);
@@ -148,7 +132,7 @@ var submitter = module.exports = function (fName, options) {
 	var formImgs = form.getElementsByTagName('img');
 	var inp;
 	for (j = 0, bLen = formImgs.length; j < bLen; j++){
-		
+
 		if (formImgs[j].attributes.submitter && formImgs[j].attributes.name) {
 			// create input and set attributes
 			inp = document.createElement( 'input' );
