@@ -70,7 +70,7 @@
 			var data, request, _URL, method;
 			// target url
 			_URL = form.action;
-			method = form.method;
+			method = form.getAttribute( 'method' );
 
 			// recover all data
 			data = getValues(form);
