@@ -67,9 +67,11 @@
 		};
 
 		upload = function (form) {
-			var data, request, _URL;
+			var data, request, _URL, method;
 			// target url
 			_URL = form.action;
+			method = form.method;
+
 			// recover all data
 			data = getValues(form);
 
@@ -107,7 +109,7 @@
 				return opts.fail( e );
 			}, false );
 
-			request.open('POST', _URL);
+			request.open( method, _URL );
 			return request.send(data);
 		};
 
