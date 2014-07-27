@@ -1,0 +1,20 @@
+{
+  "name": "submitter",
+  "version": "0.0.6",
+  "description": "Automatically submitting forms with XHR2",
+  "main": "submitter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "xhr2",
+    "forms"
+  ],
+  "url": "https://github.com/jacoborus/submitter",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jacoborus/submitter.git"
+  },
+  "author": "Jacobo Tabernero - jacoborus - jacobo@xarope.eu",
+  "license": "MIT"
+}
