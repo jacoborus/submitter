@@ -41,10 +41,12 @@
 						break;
 					// inputs with multiple instances
 					case 'radio':
-					case 'checkbox':
 						if (x.checked) {
 							data.append( x.name, x.value);
 						}
+						break;
+					case 'checkbox':
+						data.append( x.name, x.checked);
 						break;
 	                // regular inputs
 	                default:
